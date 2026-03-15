@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= pageTitle %></title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              obsidian: '#0B0B10',
+              neonPurple: '#8B5CF6',
+              softPurple: '#A78BFA'
+            }
+          }
+        }
+      };
+    </script>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body class="bg-obsidian text-gray-100 min-h-screen">
+    <main class="max-w-3xl mx-auto px-6 py-10">
+      <a href="/" class="text-sm text-gray-400 hover:text-neonPurple">← Back to home</a>
+
+      <section class="panel rounded-2xl p-8 mt-4">
+        <h1 class="text-3xl font-bold">Session Pairing</h1>
+        <p class="text-gray-400 mt-2">Use the generated code in your WhatsApp linked device flow.</p>
+
+        <% if (error) { %>
+        <div class="mt-4 border border-red-500/40 bg-red-500/10 rounded-lg p-3 text-sm text-red-300"><%= error %></div>
+        <% } %>
+
+        <div class="mt-8 grid sm:grid-cols-2 gap-4">
+          <div class="rounded-xl border border-gray-800 p-4 bg-black/30">
+            <p class="text-xs uppercase tracking-wide text-gray-500">Session ID</p>
+            <p class="text-sm mt-1 break-all"><%= sessionId %></p>
+          </div>
+          <div class="rounded-xl border border-gray-800 p-4 bg-black/30">
+            <p class="text-xs uppercase tracking-wide text-gray-500">Phone</p>
+            <p class="text-sm mt-1"><%= phoneNumber %></p>
+          </div>
+        </div>
+
+        <div class="mt-6 rounded-2xl bg-neonPurple/20 border border-neonPurple/50 p-6 text-center">
+          <p class="text-xs uppercase tracking-[0.2em] text-gray-300">Pair Code</p>
+          <p class="text-4xl md:text-5xl font-black mt-3 tracking-[0.18em]"><%= pairCode %></p>
+        </div>
+
+        <div class="mt-6">
+          <p class="text-sm text-gray-400">Connection Status</p>
+          <div class="flex items-center gap-2 mt-2">
+            <span id="statusDot" class="h-2.5 w-2.5 rounded-full bg-yellow-400"></span>
+            <p id="statusText" class="font-medium"><%= status %></p>
+          </div>
+        </div>
+
+        <div class="mt-8 grid sm:grid-cols-2 gap-4">
+          <div class="rounded-xl border border-gray-800 p-4 bg-black/30">
+            <h3 class="font-semibold mb-2">Instructions</h3>
+            <ol class="list-decimal list-inside text-sm text-gray-300 space-y-1">
+              <li>Open WhatsApp on your phone.</li>
+              <li>Navigate to Linked Devices.</li>
+              <li>Select pair with number.</li>
+              <li>Enter the code shown above.</li>
+            </ol>
+          </div>
+          <form action="/sessions/<%= sessionId %>/reconnect" method="POST" class="rounded-xl border border-gray-800 p-4 bg-black/30 flex flex-col justify-between">
+            <div>
+              <h3 class="font-semibold">Need to reconnect?</h3>
+              <p class="text-sm text-gray-400 mt-1">If session is interrupted, start reconnect flow instantly.</p>
+            </div>
+            <button class="mt-4 bg-neonPurple hover:bg-softPurple text-black font-semibold py-2.5 rounded-lg transition">Reconnect Session</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      window.sessionMeta = {
+        sessionId: '<%= sessionId %>'
+      };
+    </script>
+    <script src="/js/main.js"></script>
+  </body>
+</html>

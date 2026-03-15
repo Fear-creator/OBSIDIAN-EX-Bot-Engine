@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= pageTitle %></title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              obsidian: '#0B0B10',
+              neonPurple: '#8B5CF6',
+              softPurple: '#A78BFA'
+            }
+          }
+        }
+      };
+    </script>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body class="bg-obsidian text-gray-100 min-h-screen">
+    <main class="max-w-6xl mx-auto px-6 py-10">
+      <header class="mb-10 text-center">
+        <p class="text-neonPurple tracking-[0.3em] text-xs uppercase">Pairing Portal</p>
+        <h1 class="text-4xl md:text-5xl font-bold mt-3">OBSIDIAN-EX</h1>
+        <p class="text-gray-400 mt-2">Connect your bot sessions securely and monitor connection state in real-time.</p>
+      </header>
+
+      <section class="grid md:grid-cols-2 gap-8 items-start">
+        <div class="panel rounded-2xl p-6 md:p-8">
+          <h2 class="text-xl font-semibold mb-5">Generate Pair Code</h2>
+
+          <% if (error) { %>
+          <div class="mb-4 border border-red-500/40 bg-red-500/10 rounded-lg p-3 text-sm text-red-300"><%= error %></div>
+          <% } %>
+
+          <form action="/pair" method="POST" class="space-y-4">
+            <label class="block">
+              <span class="text-sm text-gray-300">Enter WhatsApp Number</span>
+              <input
+                type="text"
+                name="phoneNumber"
+                placeholder="e.g. 6281234567890"
+                class="mt-2 w-full rounded-lg bg-black/40 border border-gray-700 px-4 py-3 focus:outline-none focus:border-neonPurple"
+                required
+              />
+            </label>
+            <button type="submit" class="w-full bg-neonPurple hover:bg-softPurple text-black font-semibold py-3 rounded-lg transition">
+              Generate Pair Code
+            </button>
+          </form>
+        </div>
+
+        <div class="panel rounded-2xl p-6 md:p-8">
+          <div class="flex items-center justify-between gap-3 mb-4">
+            <h2 class="text-xl font-semibold">Active Sessions</h2>
+            <button id="refreshSessions" class="text-sm text-neonPurple hover:text-softPurple">Refresh</button>
+          </div>
+          <div id="sessionsContainer" class="space-y-3 text-sm text-gray-300">
+            <p class="text-gray-500">Loading active sessions...</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="/js/main.js"></script>
+  </body>
+</html>
