@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= pageTitle %></title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              obsidian: '#0B0B10',
+              neonPurple: '#8B5CF6',
+              softPurple: '#A78BFA'
+            }
+          }
+        }
+      };
+    </script>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body class="bg-obsidian text-gray-100 min-h-screen grid place-items-center p-6">
+    <div class="panel rounded-2xl p-8 max-w-lg w-full text-center">
+      <p class="text-neonPurple text-xs uppercase tracking-[0.3em]">OBSIDIAN-EX</p>
+      <h1 class="text-3xl font-bold mt-3"><%= title %></h1>
+      <p class="text-gray-300 mt-3"><%= message %></p>
+
+      <% if (sessionId) { %>
+      <p class="text-xs text-gray-500 mt-6">Session: <span class="text-gray-300"><%= sessionId %></span></p>
+      <% } %>
+
+      <div class="mt-8 flex gap-3 justify-center">
+        <a href="/" class="px-4 py-2 rounded-lg border border-gray-700 hover:border-neonPurple text-sm">Back Home</a>
+      </div>
+    </div>
+  </body>
+</html>
